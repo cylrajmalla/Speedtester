@@ -1,0 +1,27 @@
+internet-speedtest/
+├── frontend/                     # Static files served directly
+│   ├── index.html
+│   ├── results.html
+│   ├── assets/
+│   │   ├── css/tailwind.css
+│   │   ├── js/librespeed.js   # from librespeed/speedtest
+│   │   └── img/logo.png
+│   └── servers.json             # List of your test servers
+│
+├── backend/
+│   └── speedtest-go/             # Go backend (single binary)
+│       ├── speedtest-go      # compiled binary
+│       ├── config.yaml
+│       └── data/             # garbage & telemetry storage
+│
+├── dashboard/ (optional)         # Simple admin panel
+│   ├── index.html
+│   └── dashboard.go
+│
+├── docker-compose.yml
+├── Caddyfile                     # or nginx.conf
+├── README.md
+├── deploy/
+│   └── terraform/                # Optional: multi-region deployment
+└── scripts/
+    └── generate-garbage.sh       # Pre-generate test files
