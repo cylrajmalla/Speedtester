@@ -1,0 +1,9 @@
+bind: ":8080"
+assets: "./data"
+garbage_prefix: "/garbage"
+empty_prefix: "/empty"
+ipinfo_token: ""  # optional
+telemetry: true
+telemetry_db: "sqlite://telemetry.db"
+log:
+  level: "info"
