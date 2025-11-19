@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-900">
+<head>
+  <meta charset="utf-8">
+  <title>SpeedTest by You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="assets/js/librespeed.js"></script>
+  <link href="assets/css/tailwind.css" rel="stylesheet">
+</head>
+<body class="h-full flex items-center justify-center">
+  <div class="text-center p-8 bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full">
+    <h1 class="text-4xl font-bold text-white mb-8">Internet Speed Test</h1>
+    <div id="testWrapper">
+      <button id="startButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-6 px-12 rounded-full text-2xl transition">
+        Start Test
+      </button>
+      <div id="progress" class="mt-8 text-white text-xl hidden"></div>
+    </div>
+    <div id="results" class="hidden mt-8">
+      <div class="text-6xl font-bold text-white" id="ping">-</div>
+      <div class="text-sm text-gray-400">Ping (ms)</div>
+      <div class="text-6xl font-bold text-green-400 mt-6" id="download">-</div>
+      <div class="text-sm text-gray-400">Download (Mbps)</div>
+      <div class="text-6xl font-bold text-purple-400 mt-6" id="upload">-</div>
+      <div class="text-sm text-gray-400">Upload (Mbps)</div>
+      <button onclick="location.reload()" class="mt-8 bg-gray-700 hover:bg-gray-600 text-white py-3 px-8 rounded-lg">Test Again</button>
+    </div>
+  </div>
+
+  <script>
+    const s = new Speedtest();
+    
+    s.setParameter("telemetry_level", "basic");
+    s.setParameter("distance", "km");
+
+    function updateUI() {
+      document.getElementById("ping").textContent = s.getPing() ? Math.round(s.getPing()) : "-";
+      document.getElementById("download").textContent = s.getDlSpeed() ? s.getDlSpeed().toFixed(1) : "-";
+      document.getElementById("upload").textContent = s.getUlSpeed() ? s.getUlSpeed().toFixed(1) : "-";
+    }
+
+    document.getElementById("startButton").onclick = function() {
+      document.getElementById("testWrapper").classList.add("hidden");
+      document.getElementById("progress").classList.remove("hidden");
+      document.getElementById("progress").textContent = "Testing ping...";
+
+      s.onupdate = function(data) {
+        document.getElementById("progress").textContent = data.testState === 1 ? "Testing ping..." :
+                                                         data.testState === 2 ? `Download: ${data.dlStatus} Mbps` :
+                                                         data.testState === 3 ? `Upload: ${data.ulStatus} Mbps` :
+                                                         data.testState === 4 ? "Finalizing..." : "Preparing...";
+        updateUI();
+      };
+
+      s.onend = function(aborted) {
+        document.getElementById("progress").classList.add("hidden");
+        document.getElementById("results").classList.remove("hidden");
+        updateUI();
+      };
+
+      s.start();
+    };
+  </script>
+</body>
+</html>
