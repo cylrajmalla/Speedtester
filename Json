@@ -1,0 +1,18 @@
+[
+  {
+    "name": "New York, USA",
+    "server": "https://ny.yourspeedtest.com/",
+    "dlURL": "garbage",
+    "ulURL": "empty",
+    "pingURL": "empty",
+    "getIpURL": "getIP"
+  },
+  {
+    "name": "London, UK",
+    "server": "https://lon.yourspeedtest.com/",
+    "dlURL": "garbage",
+    "ulURL": "empty",
+    "pingURL": "empty",
+    "getIpURL": "getIP"
+  }
+]
