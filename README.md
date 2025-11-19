@@ -23,6 +23,6 @@ Live examples: https://librespeed.org • https://speed.cloudflare.com
 ### Option 1: Docker Compose (Recommended)
 
 ```bash
-git clone https://github.com/cylrajmalla/internet-speedtest.git
+git clone https://github.com/cylrajmalla/speedtester.git
 cd internet-speedtest
 docker compose up -d
