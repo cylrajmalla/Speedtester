@@ -1,0 +1,14 @@
+:80 {
+  root * /usr/share/caddy
+  file_server
+
+  @backend {
+    path /garbage* /empty* /getIP* /metrics
+  }
+  reverse_proxy @backend http://speedtest:8080
+}
+
+:443 {
+  tls your@email.com
+  # same as above
+}
