@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  speedtest:
+    image: ghcr.io/librespeed/speedtest-go:latest
+    ports:
+      - "80:8080"
+      - "443:8443"
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/telemetry.db:/app/telemetry.db
+    environment:
+      - BIND=:8080
+      - REDIS_DISABLE=true
+    restart: unless-stopped
+
+  web:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend:/usr/share/caddy
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - speedtest
