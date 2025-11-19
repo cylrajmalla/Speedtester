@@ -1,0 +1,1 @@
+./speedtest-go garbage generate --size 100MB --path ./data
